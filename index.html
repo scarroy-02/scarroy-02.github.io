@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rohit Roy — Computational Geometry & TDA</title>
+    <meta name="description" content="PhD student at INRIA exploring topological data analysis and computational geometry">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --text-primary: #f0efe9;
+            --text-secondary: #9895a3;
+            --accent: #6366f1;
+            --accent-glow: rgba(99, 102, 241, 0.3);
+            --border: rgba(255, 255, 255, 0.08);
+            --serif: 'Instrument Serif', Georgia, serif;
+            --sans: 'DM Sans', -apple-system, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--sans);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-size: 17px;
+            overflow-x: hidden;
+        }
+
+        /* Animated geometric background */
+        .geo-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .geo-shape {
+            position: absolute;
+            border: 1px solid var(--border);
+            opacity: 0.4;
+        }
+
+        .geo-shape.circle {
+            border-radius: 50%;
+        }
+
+        .geo-shape:nth-child(1) {
+            width: 400px;
+            height: 400px;
+            top: -100px;
+            right: -100px;
+            animation: rotate 60s linear infinite;
+        }
+
+        .geo-shape:nth-child(2) {
+            width: 300px;
+            height: 300px;
+            bottom: 20%;
+            left: -150px;
+            animation: rotate 45s linear infinite reverse;
+        }
+
+        .geo-shape:nth-child(3) {
+            width: 200px;
+            height: 200px;
+            top: 40%;
+            right: 10%;
+            transform: rotate(45deg);
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .geo-shape:nth-child(4) {
+            width: 150px;
+            height: 150px;
+            bottom: 10%;
+            right: 30%;
+            border-radius: 50%;
+            animation: pulse 6s ease-in-out infinite;
+        }
+
+        /* Torus/donut shape - topological reference */
+        .torus {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            opacity: 0.15;
+            top: 60%;
+            left: 15%;
+        }
+
+        .torus::before {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: rotate(45deg) translateY(0); }
+            50% { transform: rotate(45deg) translateY(-20px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.5; }
+        }
+
+        /* Layout */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 32px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 20px 0;
+            z-index: 100;
+            background: linear-gradient(to bottom, var(--bg-primary) 0%, transparent 100%);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--serif);
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--text-primary);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links .cv-link {
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links .cv-link:hover {
+            background: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 16px;
+        }
+
+        .social-icons a {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 120px 0 80px;
+        }
+
+        .hero-intro {
+            font-size: 0.95rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 24px;
+            font-weight: 500;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero h1 {
+            font-family: var(--serif);
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 400;
+            line-height: 1.1;
+            margin-bottom: 32px;
+            letter-spacing: -0.03em;
+            animation: fadeInUp 0.8s ease-out 0.1s backwards;
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: var(--accent);
+        }
+
+        .hero-text {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            line-height: 1.8;
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        }
+
+        .hero-text a {
+            color: var(--text-primary);
+            text-decoration: none;
+            border-bottom: 1px solid var(--accent);
+            transition: all 0.3s ease;
+        }
+
+        .hero-text a:hover {
+            color: var(--accent);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator span {
+            display: block;
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(to bottom, var(--accent), transparent);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            gap: 16px;
+            margin-bottom: 48px;
+        }
+
+        .section-number {
+            font-family: var(--serif);
+            font-style: italic;
+            color: var(--accent);
+            font-size: 1rem;
+        }
+
+        h2 {
+            font-family: var(--serif);
+            font-size: 2rem;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+        }
+
+        /* Publications */
+        .pub-subsection {
+            margin-bottom: 32px;
+        }
+
+        .pub-subsection:last-child {
+            margin-bottom: 0;
+        }
+
+        .pub-subsection-title {
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 16px;
+            font-weight: 500;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .publication {
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .publication:last-child {
+            border-bottom: none;
+        }
+
+        .publication:hover {
+            padding-left: 12px;
+        }
+
+        .publication:hover .pub-title {
+            color: var(--accent);
+        }
+
+        .pub-title {
+            font-family: var(--serif);
+            font-size: 1.15rem;
+            font-style: italic;
+            margin-bottom: 6px;
+            line-height: 1.4;
+            transition: color 0.3s ease;
+        }
+
+        .pub-title a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .pub-title a:hover {
+            color: var(--accent);
+        }
+
+        .pub-meta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px 16px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .pub-authors {
+            color: var(--text-secondary);
+        }
+
+        .pub-venue-inline {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .pub-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: gap 0.3s ease;
+        }
+
+        .pub-link:hover {
+            gap: 10px;
+        }
+
+        /* Research Interests */
+        .interests-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 24px;
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .interests-list span {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .interests-list span:not(:last-child)::after {
+            content: '·';
+            position: absolute;
+            right: -15px;
+            color: var(--accent);
+        }
+
+        .interests-list span:hover {
+            color: var(--text-primary);
+        }
+
+        /* Education Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 32px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            bottom: 8px;
+            width: 1px;
+            background: var(--border);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 40px;
+        }
+
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -36px;
+            top: 8px;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--bg-primary);
+            border: 2px solid var(--accent);
+        }
+
+        .timeline-date {
+            font-size: 0.85rem;
+            color: var(--accent);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .timeline-title {
+            font-family: var(--serif);
+            font-size: 1.2rem;
+            margin-bottom: 6px;
+        }
+
+        .timeline-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Contact */
+        .contact-content {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .contact-text {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 500px;
+        }
+
+        .email-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-family: var(--serif);
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .email-link:hover {
+            color: var(--accent);
+            gap: 16px;
+        }
+
+        .email-link i {
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .email-link:hover i {
+            transform: translateX(4px);
+        }
+
+        .cv-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .cv-download:hover {
+            color: var(--accent);
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        footer p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        footer .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 16px;
+        }
+
+        footer .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        footer .footer-links a:hover {
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 24px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+
+            .publication {
+                padding: 20px 24px;
+            }
+        }
+
+        /* Subtle grain overlay */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.03;
+            z-index: 1000;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+    </style>
+</head>
+<body>
+    <!-- Geometric Background -->
+    <div class="geo-bg">
+        <div class="geo-shape circle"></div>
+        <div class="geo-shape circle"></div>
+        <div class="geo-shape"></div>
+        <div class="geo-shape"></div>
+        <div class="torus"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="#" class="logo">R.R.</a>
+            <div class="nav-links">
+                <a href="#research">Research</a>
+                <a href="#publications">Publications</a>
+                <a href="#background">Background</a>
+                <a href="#contact">Contact</a>
+                <a href="cv.pdf" target="_blank" class="cv-link">CV ↗</a>
+            </div>
+            <div class="social-icons">
+                <a href="https://github.com/scarroy-02" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/rohitxroy" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://scholar.google.com/citations?user=4OJaTUYAAAAJ" target="_blank" rel="noopener noreferrer" aria-label="Google Scholar">
+                    <i class="fas fa-graduation-cap"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="container">
+            <p class="hero-intro">PhD Student @ INRIA</p>
+            <h1>Rohit Roy</h1>
+            <p class="hero-text">
+                I explore the intersection of <em>topology</em> and <em>data</em> — finding hidden structures in complex datasets through the lens of computational geometry. Currently in the <a href="https://team.inria.fr/datashape/">DataShape</a> team at INRIA, Sophia-Antipolis. I spent my early years building a foundation in probability theory at <a href="https://www.cmi.ac.in/">Chennai Mathematical Institute</a>, only to get swept off my feet by topological data analysis during my Masters.
+            </p>
+        </div>
+        <div class="scroll-indicator">
+            <span></span>
+        </div>
+    </header>
+
+    <main>
+        <!-- Research Interests -->
+        <section id="research">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-number">01</span>
+                    <h2>Research Interests</h2>
+                </div>
+                <div class="interests-list">
+                    <span>Topological Data Analysis</span>
+                    <span>Computational Geometry</span>
+                    <!-- <span>Persistent Homology</span> -->
+                    <!-- <span>Temporal Graphs</span> -->
+                    <!-- <span>Simplicial Complexes</span> -->
+                    <span>Stochastic Processes</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Publications -->
+        <section id="publications">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-number">02</span>
+                    <h2>Publications</h2>
+                </div>
+
+                <div class="pub-subsection">
+                    <h3 class="pub-subsection-title">Conference Papers</h3>
+                    <article class="publication">
+                        <h4 class="pub-title">Collapse and Persistence of Directed Filtered Graphs</h4>
+                        <div class="pub-meta">
+                            <span class="pub-authors">Siddharth Pritam, Rohit Roy</span>
+                            <span class="pub-venue-inline">· ALENEX '26 (to appear)</span>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="pub-subsection">
+                    <h3 class="pub-subsection-title">Preprints</h3>
+                    <article class="publication">
+                        <h4 class="pub-title">
+                            <a href="https://arxiv.org/abs/2502.10076" target="_blank">Filtration-Based Representation Learning for Temporal Graphs</a>
+                        </h4>
+                        <div class="pub-meta">
+                            <span class="pub-authors">Samrik Chowdhury, Siddharth Pritam, Rohit Roy, Madhav CS</span>
+                            <span class="pub-venue-inline">· Submitted</span>
+                            <a href="https://arxiv.org/abs/2502.10076" class="pub-link" target="_blank">
+                                arXiv <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Background -->
+        <section id="background">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-number">03</span>
+                    <h2>Background</h2>
+                </div>
+
+                <div class="pub-subsection">
+                    <h3 class="pub-subsection-title">Work Experience</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <p class="timeline-date">Jun 2025 — Oct 2025</p>
+                            <h3 class="timeline-title">Machine Learning Engineer</h3>
+                            <p class="timeline-subtitle">Hewlett-Packard, Bengaluru</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pub-subsection">
+                    <h3 class="pub-subsection-title">Education</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <p class="timeline-date">Nov 2025 — Present</p>
+                            <h3 class="timeline-title">PhD in Computer Science & Applied Mathematics</h3>
+                            <p class="timeline-subtitle">Centre Inria d'Université Côte d'Azur, France</p>
+                        </div>
+                        <div class="timeline-item">
+                            <p class="timeline-date">Aug 2023 — Apr 2025</p>
+                            <h3 class="timeline-title">M.Sc. in Data Science</h3>
+                            <p class="timeline-subtitle">Chennai Mathematical Institute · GPA 9.00</p>
+                        </div>
+                        <div class="timeline-item">
+                            <p class="timeline-date">Dec 2020 — Apr 2023</p>
+                            <h3 class="timeline-title">B.Sc. (Hons) Mathematics & Computer Science</h3>
+                            <p class="timeline-subtitle">Chennai Mathematical Institute</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-number">04</span>
+                    <h2>Get in Touch</h2>
+                </div>
+                <div class="contact-content">
+                    <p class="contact-text">
+                        Always happy to chat about topology, data, or interesting mathematical problems. Feel free to reach out.
+                    </p>
+                    <a href="mailto:rohit.a.roy@inria.fr" class="email-link">
+                        rohit.a.roy@inria.fr <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="cv.pdf" target="_blank" class="cv-download">
+                        <i class="fas fa-file-pdf"></i> Download CV
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="https://github.com/scarroy-02" target="_blank" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/rohitxroy" target="_blank" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://scholar.google.com/citation
