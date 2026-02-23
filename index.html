@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rohit Roy — Computational Geometry & TDA</title>
-    <meta name="description" content="PhD student at INRIA exploring topological data analysis and computational geometry">
+    <title>Rohit Roy</title>
+    <meta name="description" content="PhD student at INRIA working on topological data analysis and computational geometry">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600&family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -18,194 +18,144 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Geometric Background -->
-    <div class="geo-bg">
-        <div class="geo-shape circle"></div>
-        <div class="geo-shape circle"></div>
-        <div class="geo-shape"></div>
-        <div class="geo-shape"></div>
-        <div class="torus"></div>
-    </div>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <img src="photo.jpg" alt="Rohit Roy" class="profile-photo" onerror="this.style.display='none'">
+            <div class="header-content">
+                <h1>Rohit Roy</h1>
+                <p class="affiliation">
+                    PhD Student<br>
+                    <a href="https://team.inria.fr/datashape/">DataShape</a>, 
+                    <a href="https://www.inria.fr/en/centre-inria-universite-cote-azur">Centre Inria d'Université Côte d'Azur</a>
+                </p>
+                <div class="header-links">
+                    <a href="mailto:rohit.a.roy@inria.fr"><i class="fas fa-envelope"></i> Email</a>
+                    <a href="cv.pdf" target="_blank"><i class="fas fa-file-pdf"></i> CV</a>
+                    <a href="https://github.com/scarroy-02" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="https://scholar.google.com/citations?user=4OJaTUYAAAAJ" target="_blank"><i class="fas fa-graduation-cap"></i> Scholar</a>
+                    <a href="https://www.linkedin.com/in/rohitxroy" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                </div>
+            </div>
+        </div>
+    </header>
 
     <!-- Navigation -->
     <nav>
         <div class="container">
-            <a href="#" class="logo">R.R.</a>
-            <div class="nav-links">
-                <a href="#research">Research</a>
-                <a href="#publications">Publications</a>
-                <a href="#background">Background</a>
-                <a href="#contact">Contact</a>
-                <a href="cv.pdf" target="_blank" class="cv-link">CV ↗</a>
-            </div>
-            <div class="social-icons">
-                <a href="https://github.com/scarroy-02" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="https://www.linkedin.com/in/rohitxroy" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-                <a href="https://scholar.google.com/citations?user=4OJaTUYAAAAJ" target="_blank" rel="noopener noreferrer" aria-label="Google Scholar">
-                    <i class="fas fa-graduation-cap"></i>
-                </a>
-            </div>
+            <a href="#about">About</a>
+            <a href="#publications">Publications</a>
+            <a href="#background">Background</a>
+            <a href="#contact">Contact</a>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header class="hero">
-        <div class="container">
-            <p class="hero-intro">PhD Student @ INRIA</p>
-            <h1>Rohit Roy</h1>
-            <p class="hero-text">
-                I explore the intersection of <em>topology</em> and <em>data</em> — finding hidden structures in complex datasets through the lens of computational geometry. Currently in the <a href="https://team.inria.fr/datashape/">DataShape</a> team at INRIA, Sophia-Antipolis. I spent my early years building a foundation in probability theory at <a href="https://www.cmi.ac.in/">Chennai Mathematical Institute</a>, only to get swept off my feet by topological data analysis during my Masters.
-            </p>
-        </div>
-        <div class="scroll-indicator">
-            <span></span>
-        </div>
-    </header>
-
+    <!-- Main Content -->
     <main>
-        <!-- Research Interests -->
-        <section id="research">
-            <div class="container">
-                <div class="section-header">
-                    <span class="section-number">01</span>
-                    <h2>Research Interests</h2>
-                </div>
-                <div class="interests-list">
-                    <span>Topological Data Analysis</span>
-                    <span>Computational Geometry</span>
-                    <!-- <span>Persistent Homology</span> -->
-                    <!-- <span>Temporal Graphs</span> -->
-                    <!-- <span>Simplicial Complexes</span> -->
-                    <span>Stochastic Processes</span>
-                </div>
-            </div>
-        </section>
+        <div class="container">
+            <!-- About -->
+            <section id="about" class="about">
+                <h2>About</h2>
+                <p>
+                    I am a first-year PhD student in the <a href="https://team.inria.fr/datashape/">DataShape</a> team at INRIA, Sophia-Antipolis. My research focuses on <strong>topological data analysis</strong> and <strong>computational geometry</strong>, exploring topological solutions to data-driven problems.
+                </p>
+                <p>
+                    I completed my Master's in Data Science at <a href="https://www.cmi.ac.in/">Chennai Mathematical Institute</a>, where I developed a strong foundation in probability theory before being drawn to the field of TDA.
+                </p>
+                <p>
+                    <strong>Research Interests:</strong> Topological Data Analysis, Computational Geometry, Stochastic Processes
+                </p>
+            </section>
 
-        <!-- Publications -->
-        <section id="publications">
-            <div class="container">
-                <div class="section-header">
-                    <span class="section-number">02</span>
-                    <h2>Publications</h2>
-                </div>
-
+            <!-- Publications -->
+            <section id="publications">
+                <h2>Publications</h2>
+                
                 <div class="pub-subsection">
                     <h3 class="pub-subsection-title">Conference Papers</h3>
-                    <article class="publication">
-                        <h4 class="pub-title">
+                    <div class="publication">
+                        <div class="pub-title">
                             <a href="https://epubs.siam.org/doi/10.1137/1.9781611978957.14" target="_blank">Collapse and Persistence of Directed Filtered Graphs</a>
-                        </h4>
-                        <div class="pub-meta">
-                            <span class="pub-authors">Siddharth Pritam, Rohit Roy</span>
-                            <span class="pub-venue-inline">· SIAM Symposium on Algorithm Engineering and Experiments (ALENEX26)</span>
-                            <a href="https://epubs.siam.org/doi/10.1137/1.9781611978957.14" class="pub-link" target="_blank">
-                                DOI <i class="fas fa-arrow-right"></i>
-                            </a>
                         </div>
-                    </article>
+                        <div class="pub-authors">Siddharth Pritam, <strong>Rohit Roy</strong></div>
+                        <div class="pub-venue">SIAM Symposium on Algorithm Engineering and Experiments (ALENEX), 2026</div>
+                        <div class="pub-links">
+                            <a href="https://epubs.siam.org/doi/10.1137/1.9781611978957.14" target="_blank">[DOI]</a>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="pub-subsection">
                     <h3 class="pub-subsection-title">Preprints</h3>
-                    <article class="publication">
-                        <h4 class="pub-title">
+                    <div class="publication">
+                        <div class="pub-title">
                             <a href="https://arxiv.org/abs/2502.10076" target="_blank">Filtration-Based Representation Learning for Temporal Graphs</a>
-                        </h4>
-                        <div class="pub-meta">
-                            <span class="pub-authors">Samrik Chowdhury, Siddharth Pritam, Rohit Roy, Madhav CS</span>
-                            <span class="pub-venue-inline">· Submitted</span>
-                            <a href="https://arxiv.org/abs/2502.10076" class="pub-link" target="_blank">
-                                arXiv <i class="fas fa-arrow-right"></i>
-                            </a>
                         </div>
-                    </article>
+                        <div class="pub-authors">Samrik Chowdhury, Siddharth Pritam, <strong>Rohit Roy</strong>, Madhav CS</div>
+                        <div class="pub-venue">Submitted</div>
+                        <div class="pub-links">
+                            <a href="https://arxiv.org/abs/2502.10076" target="_blank">[arXiv]</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Background -->
-        <section id="background">
-            <div class="container">
-                <div class="section-header">
-                    <span class="section-number">03</span>
-                    <h2>Background</h2>
-                </div>
-
-                <div class="pub-subsection">
-                    <h3 class="pub-subsection-title">Work Experience</h3>
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <p class="timeline-date">Jun 2025 — Oct 2025</p>
-                            <h3 class="timeline-title">Machine Learning Engineer</h3>
-                            <p class="timeline-subtitle">Hewlett-Packard, Bengaluru</p>
+            <!-- Background -->
+            <section id="background">
+                <h2>Background</h2>
+                
+                <div class="cv-section">
+                    <h3 class="cv-section-title">Education</h3>
+                    <div class="cv-item">
+                        <div class="cv-date">2025 – present</div>
+                        <div class="cv-content">
+                            <strong>PhD in Computer Science & Applied Mathematics</strong><br>
+                            <span>Centre Inria d'Université Côte d'Azur, France</span>
+                        </div>
+                    </div>
+                    <div class="cv-item">
+                        <div class="cv-date">2023 – 2025</div>
+                        <div class="cv-content">
+                            <strong>M.Sc. in Data Science</strong><br>
+                            <span>Chennai Mathematical Institute</span>
+                        </div>
+                    </div>
+                    <div class="cv-item">
+                        <div class="cv-date">2020 – 2023</div>
+                        <div class="cv-content">
+                            <strong>B.Sc. (Hons) Mathematics & Computer Science</strong><br>
+                            <span>Chennai Mathematical Institute</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="pub-subsection">
-                    <h3 class="pub-subsection-title">Education</h3>
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <p class="timeline-date">Nov 2025 — Present</p>
-                            <h3 class="timeline-title">PhD in Computer Science & Applied Mathematics</h3>
-                            <p class="timeline-subtitle">Centre Inria d'Université Côte d'Azur, France</p>
-                        </div>
-                        <div class="timeline-item">
-                            <p class="timeline-date">Aug 2023 — Apr 2025</p>
-                            <h3 class="timeline-title">M.Sc. in Data Science</h3>
-                            <p class="timeline-subtitle">Chennai Mathematical Institute</p>
-                        </div>
-                        <div class="timeline-item">
-                            <p class="timeline-date">Dec 2020 — Apr 2023</p>
-                            <h3 class="timeline-title">B.Sc. (Hons) Mathematics & Computer Science</h3>
-                            <p class="timeline-subtitle">Chennai Mathematical Institute</p>
+                <div class="cv-section">
+                    <h3 class="cv-section-title">Work Experience</h3>
+                    <div class="cv-item">
+                        <div class="cv-date">Jun – Oct 2025</div>
+                        <div class="cv-content">
+                            <strong>Machine Learning Engineer</strong><br>
+                            <span>Hewlett-Packard, Bengaluru</span>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Contact -->
-        <section id="contact">
-            <div class="container">
-                <div class="section-header">
-                    <span class="section-number">04</span>
-                    <h2>Get in Touch</h2>
+            <!-- Contact -->
+            <section id="contact">
+                <h2>Contact</h2>
+                <div class="contact-info">
+                    <p><strong>Email:</strong> <a href="mailto:rohit.a.roy@inria.fr">rohit.a.roy@inria.fr</a></p>
+                    <p><strong>Location:</strong> Sophia-Antipolis, France</p>
                 </div>
-                <div class="contact-content">
-                    <p class="contact-text">
-                        Always happy to chat about topology, data, or interesting mathematical problems. Feel free to reach out.
-                    </p>
-                    <a href="mailto:rohit.a.roy@inria.fr" class="email-link">
-                        rohit.a.roy@inria.fr <i class="fas fa-arrow-right"></i>
-                    </a>
-                    <a href="cv.pdf" target="_blank" class="cv-download">
-                        <i class="fas fa-file-pdf"></i> Download CV
-                    </a>
-                </div>
-            </div>
-        </section>
+            </section>
+        </div>
     </main>
 
     <!-- Footer -->
     <footer>
         <div class="container">
-            <div class="footer-links">
-                <a href="https://github.com/scarroy-02" target="_blank" aria-label="GitHub">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="https://www.linkedin.com/in/rohitxroy" target="_blank" aria-label="LinkedIn">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-                <a href="https://scholar.google.com/citations?user=4OJaTUYAAAAJ" target="_blank" aria-label="Google Scholar">
-                    <i class="fas fa-graduation-cap"></i>
-                </a>
-            </div>
-            <p>© 2025 Rohit Roy · Sophia-Antipolis, France</p>
+            <p>© 2025 Rohit Roy</p>
         </div>
     </footer>
 
