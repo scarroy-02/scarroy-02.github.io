@@ -311,6 +311,13 @@ h2 {
     text-decoration: underline;
 }
 
+.pub-description {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    margin-top: 4px;
+    line-height: 1.5;
+}
+
 /* ===================================
    Background / CV
    =================================== */
