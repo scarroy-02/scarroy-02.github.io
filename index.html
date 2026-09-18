@@ -5,56 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rohit Roy</title>
     <meta name="description" content="PhD student at INRIA working on topological data analysis and computational geometry">
-    
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600&family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- Styles -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <img src="photo.jpg" alt="Rohit Roy" class="profile-photo" onerror="this.style.display='none'">
-            <div class="header-content">
-                <h1>Rohit Roy</h1>
-                <p class="affiliation">
-                    PhD Student<br>
-                    <a href="https://team.inria.fr/datashape/">DataShape</a>, 
-                    <a href="https://www.inria.fr/en/centre-inria-universite-cote-azur">Centre Inria d'Université Côte d'Azur</a>
-                </p>
-                <div class="header-links">
-                    <a href="mailto:rohit.a.roy@inria.fr"><i class="fas fa-envelope"></i> Email</a>
-                    <a href="assets/cv.pdf" target="_blank"><i class="fas fa-file-pdf"></i> CV</a>
-                    <a href="https://github.com/scarroy-02" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-                    <a href="https://scholar.google.com/citations?user=4OJaTUYAAAAJ" target="_blank"><i class="fas fa-graduation-cap"></i> Scholar</a>
-                    <a href="https://www.linkedin.com/in/rohitxroy" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
-                </div>
-            </div>
-        </div>
-    </header>
+    <div class="page">
+        <!-- Sidebar -->
+        <header class="sidebar">
+            <img src="assets/profile_pic.jpg" alt="Rohit Roy" class="profile-photo">
+            <h1>Rohit Roy</h1>
+            <p class="role">PhD Student</p>
+            <p class="affiliation">
+                <a href="https://team.inria.fr/datashape/">DataShape</a>,
+                <a href="https://www.inria.fr/en/centre-inria-universite-cote-azur">Centre Inria d'Université Côte d'Azur</a>
+            </p>
 
-    <!-- Navigation -->
-    <nav>
-        <div class="container">
-            <a href="#about">About</a>
-            <a href="#publications">Publications</a>
-            <a href="talks.html">Talks</a>
-            <a href="fun.html">Fun</a>
-            <a href="#background">Background</a>
-            <a href="#contact">Contact</a>
-        </div>
-    </nav>
+            <nav>
+                <a href="#about">About</a>
+                <a href="#publications">Publications</a>
+                <a href="talks.html">Talks</a>
+                <a href="fun.html">Fun</a>
+                <a href="#background">Background</a>
+                <a href="#contact">Contact</a>
+            </nav>
 
-    <!-- Main Content -->
-    <main>
-        <div class="container">
+            <ul class="links">
+                <li><a href="mailto:rohit.a.roy@inria.fr"><i class="fas fa-envelope"></i>Email</a></li>
+                <li><a href="assets/cv.pdf" target="_blank"><i class="fas fa-file-pdf"></i>CV</a></li>
+                <li><a href="https://github.com/scarroy-02" target="_blank"><i class="fab fa-github"></i>GitHub</a></li>
+                <li><a href="https://scholar.google.com/citations?user=4OJaTUYAAAAJ" target="_blank"><i class="fas fa-graduation-cap"></i>Google Scholar</a></li>
+                <li><a href="https://www.linkedin.com/in/rohitxroy" target="_blank"><i class="fab fa-linkedin"></i>LinkedIn</a></li>
+            </ul>
+        </header>
+
+        <!-- Main Content -->
+        <main>
             <!-- About -->
             <section id="about" class="about">
                 <h2>About</h2>
@@ -72,9 +66,9 @@
             <!-- Publications -->
             <section id="publications">
                 <h2>Publications</h2>
-                
+
                 <div class="pub-subsection">
-                    <h3 class="pub-subsection-title">Conference Papers</h3>
+                    <h3>Conference Papers</h3>
 
                     <div class="publication">
                         <div class="pub-title">
@@ -86,11 +80,11 @@
                             <a href="https://epubs.siam.org/doi/10.1137/1.9781611978957.14" target="_blank">[DOI]</a>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="pub-subsection">
-                    <h3 class="pub-subsection-title">Workshop Papers</h3>
+                    <h3>Workshop Papers</h3>
+
                     <div class="publication">
                         <div class="pub-title">
                             <a href="https://arxiv.org/abs/2607.01046" target="_blank">The symmetry set as a knitting pattern for vineyards</a>
@@ -117,7 +111,8 @@
                 </div>
 
                 <div class="pub-subsection">
-                    <h3 class="pub-subsection-title">Preprints</h3>
+                    <h3>Preprints</h3>
+
                     <div class="publication">
                         <div class="pub-title">
                             <a href="https://arxiv.org/abs/2607.01046" target="_blank">The Singular Source of Vineyard Monodromy</a>
@@ -146,9 +141,9 @@
             <!-- Background -->
             <section id="background">
                 <h2>Background</h2>
-                
+
                 <div class="cv-section">
-                    <h3 class="cv-section-title">Education</h3>
+                    <h3>Education</h3>
                     <div class="cv-item">
                         <div class="cv-date">2025 – present</div>
                         <div class="cv-content">
@@ -173,7 +168,7 @@
                 </div>
 
                 <div class="cv-section">
-                    <h3 class="cv-section-title">Work Experience</h3>
+                    <h3>Work Experience</h3>
                     <div class="cv-item">
                         <div class="cv-date">Jun – Oct 2025</div>
                         <div class="cv-content">
@@ -192,15 +187,13 @@
                     <p><strong>Location:</strong> Sophia-Antipolis, France</p>
                 </div>
             </section>
-        </div>
-    </main>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>© 2026 Rohit Roy</p>
-        </div>
-    </footer>
+            <!-- Footer -->
+            <footer>
+                <p>© 2026 Rohit Roy</p>
+            </footer>
+        </main>
+    </div>
 
     <!-- Scripts -->
     <script src="main.js"></script>
